@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Email Registration – JPGS</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+      max-width: 480px;
+      width: 100%;
+      padding: 36px 32px 40px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .header img {
+      height: 64px;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      color: #1a3c6e;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.3;
+    }
+
+    .header p.tagline {
+      color: #c9a84c;
+      font-style: italic;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 2px solid #1a3c6e;
+      margin: 18px 0 22px;
+    }
+
+    .form-title {
+      color: #1a3c6e;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .instruction {
+      font-size: 12.5px;
+      color: #555;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      color: #1a3c6e;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: #1a3c6e;
+    }
+
+    input.error-border { border-color: #e74c3c; }
+    input.success-border { border-color: #27ae60; }
+
+    .name-box {
+      margin-top: 8px;
+      min-height: 36px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .name-box.found {
+      display: block;
+      background: #eaf6ee;
+      color: #1a7a3c;
+      border: 1.5px solid #27ae60;
+    }
+
+    .name-box.not-found {
+      display: block;
+      background: #fdecea;
+      color: #c0392b;
+      border: 1.5px solid #e74c3c;
+      font-weight: normal;
+    }
+
+    .name-label {
+      font-size: 11px;
+      color: #888;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .name-label.visible { display: block; }
+
+    .submit-btn {
+      width: 100%;
+      background: #1a3c6e;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+      font-family: Arial, sans-serif;
+    }
+
+    .submit-btn:hover { background: #153060; }
+    .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 24px 16px;
+    }
+
+    .success-msg .tick {
+      font-size: 48px;
+      color: #27ae60;
+    }
+
+    .success-msg h2 {
+      color: #1a3c6e;
+      margin: 12px 0 6px;
+      font-size: 18px;
+    }
+
+    .success-msg p {
+      color: #555;
+      font-size: 13px;
+    }
+
+    .error-msg {
+      font-size: 11.5px;
+      color: #e74c3c;
+      margin-top: 4px;
+      display: none;
+    }
+    .error-msg.visible { display: block; }
+
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Header -->
+  <div class="header">
+    <!-- JPGS Logo SVG (blue globe) -->
+    <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="28" fill="#1a3c6e"/>
+      <ellipse cx="32" cy="32" rx="12" ry="28" fill="none" stroke="#fff" stroke-width="1.5"/>
+      <ellipse cx="32" cy="32" rx="28" ry="10" fill="none" stroke="#fff" stroke-width="1.5"/>
+      <line x1="4" y1="32" x2="60" y2="32" stroke="#fff" stroke-width="1.5"/>
+      <line x1="32" y1="4" x2="32" y2="60" stroke="#fff" stroke-width="1.5"/>
+      <text x="32" y="37" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="10" fill="#c9a84c">JPGS</text>
+    </svg>
+    <h1>Jayshree Periwal Global School</h1>
+    <p class="tagline">Educate, Enlighten, Empower</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- Form Section -->
+  <div id="formSection">
+    <div class="form-title">Personal Email Registration</div>
+    <p class="instruction">
+      This information will be used to share confidential salary-related documents securely.<br><br>
+      <strong>Please enter your Employee ID exactly as issued</strong> — your name will appear automatically to confirm the correct ID has been entered.
+    </p>
+
+    <div class="field">
+      <label for="empId">Employee ID *</label>
+      <input type="text" id="empId" placeholder="e.g. T123, GTB3014, 1003" autocomplete="off" spellcheck="false"/>
+      <div class="name-label" id="nameLabel">Employee Name</div>
+      <div class="name-box" id="nameBox"></div>
+      <div class="error-msg" id="empError">Employee ID not recognised. Please check and try again.</div>
+    </div>
+
+    <div class="field" id="emailField" style="display:none;">
+      <label for="personalEmail">Personal Email ID *</label>
+      <input type="email" id="personalEmail" placeholder="yourname@gmail.com" autocomplete="off"/>
+      <div class="error-msg" id="emailError">Please enter a valid email address.</div>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" disabled onclick="handleSubmit()">Submit</button>
+  </div>
+
+  <!-- Success Section -->
+  <div class="success-msg" id="successMsg">
+    <div class="tick">✓</div>
+    <h2>Submitted Successfully!</h2>
+    <p id="successText">Thank you. Your personal email ID has been registered.</p>
+  </div>
+
+  <div class="footer-note">Jayshree Periwal Global School &nbsp;|&nbsp; HR Department</div>
+</div>
+
+<script>
+const EMP_DATA = {"1003": "JAIGOVIND KASHYAP", "1015": "ASHOK KUMAWAT", "1022": "RAVI MAHAVAR", "1023": "VIPIN SAINI", "1029": "DAYA SHANKAR GUPTA", "1032": "RADHESHYAM  SHARMA", "1034": "VISHNU KUMAR SHARMA", "1038": "NITESH  MAHAWAR", "1039": "VISHNU  SHARMA", "1172": "ROHITAS  KUMAR", "1176": "ROSHAN  LAL", "1206": "SAMPAT SINGH", "1211": "RAJESH KUMAR KOLI", "1223": "SITA DEVI AALORIYA", "1236": "HEMANT KHOLIYA", "1240": "SUDARSHAN MAHAVAR", "1241": "TEJ SINGH KUSHWAHA", "1247": "SACHIN MAHAWAR", "1248": "AJAY MEENA", "1251": "RAJKUMAR SAIN", "1256": "PRABHU SINGH", "1257": "BANWARI LAL KUMAWAT", "1258": "RAM CHANDRA MEENA", "1259": "HEMRAJ SHERSIYA", "1275": "KAMAL ALORIYA", "1278": "ABHAY KUMAR DABLA", "1289": "AAMIN KHAN", "1295": "RAHUL SHARMA", "1301": "OM PRAKASH RAIGAR", "1329": "MAHENDRA  PRAJAPAT", "1331": "VIJAY ATKAN", "1336": "HEERA LAL BAIRWA", "1342": "MAHESH KUMAR SAINI", "1349": "SHIVAM  MAHAWAR", "1350": "SURAJ KUMAR MAHAWAR", "1353": "SANJAY KUMAR MAHAWAR", "1357": "KULDEEP", "1358": "VISHVAJEET  MEENA", "1364": "SONU  SISODIYA", "1367": "SHRAVAN KUMAR", "1371": "BIBHUTI BHUSANA PADIHARY", "1374": "VINOD MEENA", "1378": "SIYARAM GURJAR", "1379": "MANISH", "1384": "MUKESH KUMAR BAIRWA", "1385": "PUSHPENDRA  MEENA", "1389": "VIJAY  KUMAR", "1390": "JITENDRA  MEENA", "1397": "KRISHAN  SHERAWAT", "1401": "VISHNU KUMAR SWAMI", "1406": "MOHAN GOPAL SAINI", "1409": "SAHWAG  SHERAWAT", "1410": "SHISHUPAL  VERMA", "1411": "PINTU  MIROTHA", "1418": "NIRAJ KUMAR SHERSIYA", "1419": "PAWAN KUMAR SHERSIYA", "1421": "SANTOSH  MAHAWAR", "1422": "RAGHUVEER  BAIRWA", "1423": "PANKAJ  BAIRWA", "1425": "VIKAS  JABDOLIYA", "1426": "DHARMRAJ  VERMA", "1428": "VIKAS  SHARMA", "1430": "GAURI SHANKAR GOTHWAL", "1432": "NANAG RAM BAIRWA", "1434": "BANTI  MEENA", "1435": "JEETRAM  MEENA", "1436": "PRAVEEN  UDENIYA", "1437": "ARBAJ  KHAN", "1438": "KANA  ALORIYA", "1439": "PRINCE  ALORIYA", "1442": "PRAKASH KUMAR MAHAWAR", "1443": "AKASH  MAHAWAR", "1444": "VISHAL  MAHAWAR", "1445": "PANKAJ  MEGHVANSHI", "1451": "SONU", "1460": "SURAJ KUMAR KOLI", "1461": "VIJAY KUMAR MAHAWAR", "1468": "VIJESH KUMAR SAINI", "1471": "PRAKASH CHAND SHERAWAT", "1480": "UGAMA RAM KARIR", "GV002": "DIVYANG  JAIN", "T112": "CHETAN KUMAR", "T117": "MUKESH KUMAR MANETHIYA", "T12": "ABHISHEK PATI TIWARI", "T121": "HARSH SHARMA", "T123": "JAIKISHAN RAWTANI", "T124": "PRIYANKA TRIPATHI", "T136": "ALOK CHAND GUPTA", "T189": "PUSHPENDRA PRATAP SINGH", "T19": "ASHWINI KUMAR BANET", "T193": "ABHISHEK SHARMA", "T194": "AJAY SHARMA", "T195": "AMIT KUMAR RAWTANI", "T21": "BHUPENDRA SUMAN", "T219": "NARPAT SINGH SHEKHAWAT", "T232": "RAHUL SUVALKA", "T234": "SHASHI KAUSHIK", "T238": "ASHISH KUMAR SHARMA", "T244": "GAURAV PARASHAR", "T246": "RAHUL BENIWAL", "T252": "TANAY AGRAWAL", "T256": "SUDHIR SINGH", "T265": "DEEPAK KUMAR MISHRA", "T268": "SUSHEEL KUMAR", "T269": "UTKARSH GANGWAL", "T270": "DILIP GUPTA", "T272": "RAJ KUMAR CHOUHAN", "T275": "KRATIKA SINGH", "T276": "MOHAMMED ZAID", "T282": "SAUMYA VISHAL GUPTA", "T284": "VIJAY SINGH RATHORE", "T302": "NAMRATA BAHETI", "T322": "TARUN SHARMA", "T328": "SHUBHAM SATSANGI", "T330": "AKHIL AUGUSTINE", "T332": "MOHAMMED ADIL", "T333": "SHIVAM VERMA", "T335": "SITA RAM SHARMA", "T34": "MAHESH KUMAR KANOJIA", "T341": "NIKHIL SINGH CHOUHAN", "T350": "RAJAT BHARDWAJ", "T367": "GANPAT LAL", "T377": "SUSHIL RATHEE", "T378": "PRADEEP CHOUDHARY", "T383": "LOKESH SEN", "T385": "HARI OM VERMA", "T386": "SARVESH KUMAR", "T389": "MANISH KUMAWAT", "T402": "SHUBHAM  SINGH", "T405": "BAJRANG  CHOUDHARY", "T406": "KAMLESH  MEENA", "T408": "RAHUL  YOGI", "T409": "CHITRANSHU  PANDEY", "T412": "MOHIT KUMAR SONI", "T419": "DINRAJ  SHARMA", "T425": "RAJARAM  BISHNOI", "T433": "AYUSH  SHARMA", "T440": "RAHUL  KAREL", "T449": "AJAY  GANDHARVA", "T455": "DINESH KUMAR SHARMA", "T465": "JITENDRA  KUMAR", "T470": "KANHAIYA  LAL", "T475": "SARANSH  KALRA", "T479": "SHIVAM  KUMAR", "T495": "OM PRAKASH DHOLI", "T498": "NIDHI  SHARMA", "T515": "PULKIT  SHARMA", "T528": "PRADEEP  NOGIA", "T529": "AKHILESH KUMAR PANDEY", "T540": "RAHUL  BAIRWA", "T548": "MUKUL  RAJORIA", "T549": "UMAKANT  MEENA", "T55": "RAJESH KUMAR SHARMA", "T550": "AKHILESH  PRAJAPATI", "T558": "KISHAN  BENIWAL", "T559": "MINTU  SARKAR", "T56": "RAJESH TEPAN", "T592": "SAURABH  JAIN", "T597": "GOURAV", "T610": "HEMANT KUMAR PRAJAPATI", "T611": "MUNIRAJ  MEENA", "T617": "SATYANARAYAN  SINGH", "T620": "DEEPANSHU  REGAR", "T630": "DEEKSHA  SHARMA", "T634": "PRERAK  JAIN", "T638": "RANJEET SINGH JADAUN", "T643": "RISHABH  JAIN", "T644": "MAYANK  PANWAR", "T655": "RAJAT  SHARMA", "T656": "DEVESH  KUMAR", "T662": "BHAVESH  SHARMA", "T666": "YASH RAJ GOSWAMI", "T672": "JEETENDRA  KUMAWAT", "T677": "VARUN  KASLIWAL", "T687": "AKASH  SINGH", "T690": "RAVI  CHOUDHARY", "T695": "SHLOK  GAUR", "T696": "YASH  RAMAWAT", "T708": "MADHURENDRA  KUMAR", "T709": "KARAN  GUPTA", "T715": "NITIN  KUMAR GUPTA", "T719": "RAJESH KUMAR SHARMA", "T727": "ROHAN  GANGULY", "T730": "PRADEEP  YADAV", "T732": "HEMANT  ACHARYA", "T736": "NAVNEET SINGH SHEKHAWAT", "T74": "SUNIL KUMAR RAHI", "T744": "MAHENDRA  CHOUDHARY", "T747": "VINISHA  JAIN", "T757": "ABINASH  TAMANG", "T777": "UTTAM  SHARMA", "T781": "YUG  SAIN", "T792": "AAYUSH", "T797": "NITESH KUMAR SHAH", "T799": "GAURAV  CHANDANI", "T80": "NEERAJ PRAJAPATI", "T803": "VAISHNAV SHUBHAM DHARAMPAL", "T804": "VIKRAM  SINGH", "T806": "TUSHAR  BHATT", "T807": "VIRENDRA  KUMAR", "T82": "VAIBHAV SHARMA", "T822": "MANISH  AGRAWAL", "T840": "SINU  THOMAS", "T842": "MANOJ  AGARWAL", "T843": "RAHUL  DABLAY", "T844": "MIZAN  AHMED", "T85": "ABHIJEET BAHADUR SAXENA", "T861": "ABHISHEK  SHARMA", "T866": "ADARSH  KUMAR", "T867": "VIBHOR  SAXENA", "T873": "MERWIN  LAZRUS", "T879": "HIMALAYA", "T89": "AMIT KUMAR GANDHARV", "T9": "MAYANK SHUKLA", "T94": "PRADEEP KUMAR SHARMA", "T96": "VIJAY KUMAR", "T97": "VISHWANATH PUROHIT", "TECH001": "Uday  Airun", "TECH002": "KARAN  SHARMA", "TECH003": "NAWAL KISHOR JANGID", "TECH004": "VISHNU", "TECH005": "KAMAL  SHARMA", "TECH006": "RAMBHAJAN  MALI", "TECH007": "Satyaveer  Saini", "1466": "NIRMALA  DEVI", "1016": "BHARTI SINGH", "1210": "PARVATI DEVI RAIGAR", "1214": "SHAKEELA BANO", "1222": "SANTOSH DEVI", "1224": "MAMTA DEVI", "1225": "DEVKI DEVI", "1226": "ASHA", "1227": "SANTRA DEVI", "1228": "ANITA DEVI", "1230": "NANAGI DEVI", "1252": "MEERA DEVI", "1254": "SUMITRA DEVI", "1265": "GUDDI DEVI", "1270": "BHAGA", "1273": "SAMPATI", "1277": "GEETA DEVI", "1280": "SANTOSH DEVI", "1282": "SAVITRI DEVI", "1284": "SUSHILA DEVI", "1285": "CHOTI DEVI", "1286": "NILAM DEVI", "1298": "SONU DEVI MAHAWAR", "1299": "PINKI DEVI", "1303": "MAMTA DEVI", "1306": "JYOTI DEVI", "1309": "PHORANTI  DEVI", "1313": "SONU  DEVI", "1316": "ANJANA KUMARI MAHAWAR", "1322": "KIRAN DEVI SHARMA", "1326": "TAJ  KANWAR", "1328": "CHHOTI  MAHAWAR", "1330": "KAILASHI DEVI MAHAWAR", "1334": "UMA  MEENA", "1335": "SANTOSH  MEENA", "1339": "SANTARA  DEVI", "1343": "USHA DEVI MAHAWAR", "1344": "MEERA DEVI MAHAVAR", "1345": "RUKMANI  DEVI", "1346": "MADHU  DEVI", "1347": "SAMPATI  DEVI", "1348": "DROPADI", "1355": "SALMA", "1356": "SUMAN  DEVI", "1360": "MANJU  DEVI", "1361": "SUGANA  DEVI", "1366": "VIMLA  DEVI", "1382": "NILAM", "1387": "MANISHA BAI KOLI", "1395": "AAKASH  MAHAWAR", "1403": "UGANTI", "1404": "UMA  DEVI", "1416": "SUMAN  ALORIYA", "1427": "URMILA  KUMARI", "GV001": "POOJA  PURI", "T1": "MANJU KHOSLA", "T107": "MALVIKA CHATURVEDI", "T119": "SUHANI BHARGAVA", "T130": "PRAPTI SOGANI JAIN", "T138": "KALINDI PARNAMI", "T14": "ANKITA MISHRA", "T151": "PURNIMA SHARMA", "T153": "SNEHA MAHESHWARI", "T154": "SEAMANTI SHARMA", "T155": "SWATI VIKAS GULABANI", "T158": "SONAM CHAUDHARY", "T159": "SONIA JAIN", "T166": "DIVYA SINGH", "T167": "GURLEEN KAUR SARNA", "T170": "LOVELY KUNDNANI", "T176": "SHWETA GUPTA", "T178": "ARPITA CHOWDHURY", "T179": "DEEPTI HANDA", "T18": "APARNA GAUMAT", "T183": "MEGHA GUPTA", "T184": "MONICA JAIN", "T187": "NIKITA LASHKERY AGGARWAL", "T192": "SUMITA BHAKAR", "T20": "BHAGYASHRI R NAIDU", "T201": "SHWETA MATHUR", "T202": "EKTA PARNAMI", "T203": "TARANPREET KAUR", "T208": "NIDHA SHARMA", "T213": "VANDANA BHATI", "T214": "HARRSHA ISRANI", "T217": "PREETY MAHESHWARI", "T218": "THECLA SAVINA PAUL", "T220": "RADHIKA SHARMA", "T221": "DIVYA CHOUDHARY", "T222": "PARUL YADAV", "T225": "NIKITA SHARMA", "T227": "ANSHU BATTA", "T230": "NEETU SHARMA", "T235": "MONIKA SIWAL", "T236": "KIRTI SINGH CHAUHAN", "T237": "VALLARI VASISHTHA", "T242": "MISHA JAIN", "T243": "BEVIN GABRIEL MANDIS", "T245": "NIDHI KAUR", "T247": "AMITA SAINI", "T25": "DARSHNI SHARMA", "T250": "SHALINI SHARMA", "T251": "HINA SHIVPURI", "T253": "DEVINA PANT", "T258": "JAGRITI PAHUJA", "T260": "SAKSHI VERMA", "T262": "AMARPREET SAXENA", "T266": "JYOTSNA PAREEK", "T27": "HEMLATA SHARMA", "T271": "GALAXMI SHARMA", "T273": "HARSHITA SHARMA", "T277": "NEETA JAIN", "T279": "RAJANI SHARMA", "T283": "SHILPI KAUSHIK", "T285": "ANURUMA B DEY", "T286": "ANJALI RAISINGHANI", "T297": "KOMAL GAUR", "T3": "SONIA AHUJA", "T300": "MEENAKSHI MURDIA", "T304": "PALLAVI MISHRA", "T308": "RICHA SAXENA", "T309": "RUCHI SISODIA", "T311": "SNEHA GIRDHAR", "T314": "TANUSHREE JAIN", "T315": "TANYA GAUR KHURANA", "T317": "ASTHA VERMA", "T318": "DIVYA SADNANI", "T319": "POONAM  PATEL", "T321": "REKHA SHARMA", "T326": "ANKIT VERMA", "T327": "RASHMI VERMA", "T33": "KIRTI BHUTANI", "T338": "PRABHJOT KAUR", "T340": "SHASHI SHARMA", "T344": "RITU CHAUHAN", "T351": "MADHURI GANGWAL", "T355": "ISHITA NANGIA", "T356": "PRIYANKA KHURANA", "T357": "SNIGDHA CHOUDHARY", "T358": "VIMLA KUMARI SHARMA", "T361": "SHAMIKA SHRIPAD HANAMSAGAR", "T362": "ANUSHRI PARNAMI", "T363": "LATA DASWANI", "T364": "MUDITA GUPTA", "T366": "SONIA BAIJAL", "T373": "VAISHALI DATWANI", "T38": "MANJU SHARMA", "T382": "SNEHA KHURANA", "T39": "MANSI BHATNAGAR", "T390": "KRATIKA PARWAL", "T392": "RUCHI  SOGANI", "T393": "SWATEE  VERMA", "T395": "KOKILA", "T397": "MAMTA  JAIN", "T398": "SHIVANI  SHEKHAWAT", "T399": "PARIDHI  RATHORE", "T411": "VIPASHA  SODHI", "T414": "MANISHA  MATHEW", "T415": "AARTI  VIJAY", "T418": "GUNEET  AHLUWALIA", "T420": "DIVYA  ARORA", "T421": "NEHA  KASWAN", "T422": "HEENA  DIWAN", "T423": "APOORVA  JAIN", "T426": "BALVINDER  KAUR", "T427": "MAHIMA  JOSHI", "T430": "ANJU  MUKHI", "T431": "MANISHA  RATHORE", "T434": "SWATI  SAHAL", "T435": "SANA  ANJUM", "T44": "NAMITA WADHWA", "T442": "NISHA  JANGID", "T445": "VARSHA  DANI", "T450": "JUHI  CHAWLA", "T452": "AAKRITI  JAIN", "T457": "DIVYA  KAPOOR", "T458": "EKTA  JAIN", "T460": "DEVASHI THOLIA JAIN", "T461": "GARIMA SINGH JODHA", "T462": "KANIKA  GUPTA", "T463": "PRACHI  MAKWANA", "T464": "POOJA JAIN GHIYA", "T466": "RITU  DHABHAI", "T467": "RACHNA  ROY", "T473": "SURABHI  DUBE", "T474": "SARITA  KUNDNANI", "T476": "SWATI  JAIN", "T477": "AKSHITA  DUA", "T478": "SUMAN  AGRAWAL", "T48": "POONAM MODI", "T480": "TEENA  SHARMA", "T483": "VAISHALI  SISODIA", "T484": "LAVINA  TANDON", "T485": "LAVEENA  CHOUHAN", "T487": "NEHA  VIJAYWARGIYA", "T488": "MAHIMA  CHANDNANI", "T489": "NIMISHA  SHARMA", "T490": "MUSKAN  KHATWANI", "T491": "NEERA  DADHICH", "T492": "PALLAVI  SINGH", "T494": "PRAMILA  KALANI", "T496": "MUSKAN  KOTWANI", "T499": "PREETI  JAIN", "T50": "PREETY GOEL", "T500": "MANSI  PATNI", "T501": "LAVINA  SANDHU", "T503": "RUCHIKA  GUPTA", "T504": "SADAF  IQBAL", "T505": "RACHNA  SHARMA", "T509": "DIVYA  SHARMA", "T51": "PRIYANKA SAIN", "T511": "PRIYANKA  TORANI", "T512": "SHASHI  GOYAL", "T517": "SADHANA  SIKARWAR", "T518": "JOYA  ANJUM", "T519": "KUMUD  PAREEK", "T52": "PRIYANSHI JAIN", "T524": "HARPREET KAUR SHARMA", "T526": "PRIYA  AGRAWAL", "T53": "RADHIKA KABRA", "T531": "RITHIKA  SONI", "T534": "BIGUL  KHANDELWAL", "T535": "VAISHALI  BHARGAVA", "T537": "SHWETA  JAIN", "T54": "RAGINI MAHAJAN", "T543": "AARUSHI  SHARMA", "T552": "TRIPTA PATHAK MISHRA", "T554": "MEENAKSHI  TANEJA", "T555": "RAKHI  BHOLA", "T556": "NEELU  AGARWAL", "T557": "JYOTI  KUMARI", "T560": "SUSHMITA  MAITY", "T561": "ANKITA  CHANDWAR", "T562": "RUCHIKA  GANGWANI", "T563": "KOMAL  KAUR", "T564": "SARJU  GUPTA", "T566": "ANCHAL  ARORA", "T567": "CHANDNI  GULATI", "T568": "PRITI  KHANDELWAL", "T569": "SARAVJIT KAUR ATTHWAL", "T57": "RANJANA SINGH", "T570": "MAHIMA", "T573": "JIYA  KUNDWANI", "T581": "JYOTI  SONI", "T584": "SAKSHI  BHATIA", "T588": "LOVEJEET  ARORA", "T590": "REENA  MATHUR", "T594": "KHUSHBOO  SHAIJWANI", "T596": "RAMANDEEP  KAUR", "T60": "RIYA SAXENA", "T600": "AMANPREET  KAUR", "T603": "KANCHAN", "T604": "BABITA  AHLUWALIA", "T605": "SANGEETA  GUPTA", "T607": "SONIA  JAIN", "T608": "SUNITA  GUPTA", "T609": "DEVKI  JANGID", "T615": "BHUMIKA  BHAGWANI", "T616": "KARISHMA  SAHANI", "T618": "PRIYANSHI  PIPPAL", "T619": "ASHA  KUMARI", "T621": "DILAWEZ  KHAN", "T622": "PRIYANKA  PALIWAL", "T625": "POOJA  JANGID", "T626": "RACHNA", "T627": "KRITIKA  CHOPRA", "T629": "SHREYA  KEDIA", "T63": "SHARMISTHA MUKHERJEE", "T631": "POOJA  JADON", "T633": "SHRUTI  SHARMA", "T636": "EKTA  LALWANI", "T64": "SHIKHA JAIN", "T640": "MANSI  MALHOTRA", "T641": "LOVLEEN  DAGUR", "T647": "PRIYANKA  VERMA", "T648": "KANIKA  KUMAWAT", "T649": "HARNISH  KAUR", "T65": "SHIKHA MISHRA", "T652": "AANYA  JAIN", "T653": "ANSHU  MATHUR", "T659": "DIVYA  REHWANI", "T663": "SIMRAN  THAKUR", "T664": "AMITA  CHOPRA", "T667": "PARUL  SHAH", "T668": "TANUJA  SHARMA", "T669": "RAJ  KUMARI", "T670": "SANJITA  DOGRA", "T673": "RASHMI  SHRIMALI", "T68": "SHIVALI SHARMA", "T680": "RITIKA SINGH SHEKHAWAT", "T684": "VEDIKA  MISHRA", "T685": "YADVI  SINGH", "T686": "PREETI  KHANDELWAL", "T691": "LAVINA  ESRANI", "T692": "REKHA  SONI", "T693": "DRISHTI  SHISHODIA", "T694": "ISHITA  AUDITTO", "T697": "NANDINI  SHARMA", "T698": "PRERNA  CHANDIRANI", "T699": "SEEMA  SHARMA", "T700": "RAJNANDINI  SAINI", "T702": "PRIYANSHI  SHARMA", "T703": "TRISHIJA  RATHORE", "T704": "SARITA GOPAL DADHICH", "T706": "ISHIKA  BAID", "T707": "KOMAL  SHARMA", "T710": "MILI  SHARMA", "T711": "TANUSHREE  MARKANDEY", "T712": "RENU  SHARMA", "T713": "JYOTI  MISHRA", "T717": "NAMRATA  KHANDELWAL", "T718": "FARHEEN  FAROOQUI", "T720": "KIRTI  GANDHI", "T721": "NEHA  KUMAWAT", "T722": "PRIYANKA  SHARMA", "T723": "PRIYAMVADA  CHAUHAN", "T725": "PRIYANKA  SANGTANI", "T729": "KASHISH  SHARMA", "T731": "KAJAL  GOYAL", "T734": "MEENAKSHI  LALWANI", "T737": "ADITI  BHARDWAJ", "T738": "SRESTHI  DATTA", "T739": "SOMYA  KABRA", "T741": "MINAKSHI  GOYAL", "T742": "NAMYATA  HALDIA", "T743": "TANVI  SHARMA", "T745": "MONIKA", "T746": "NEHA  SHANKER", "T75": "SURABHI AUDITTO", "T750": "POOJA  SHARMA", "T751": "PALAK  AHUJA", "T752": "RICHA  VYAS", "T753": "HARSHI  SINHA", "T754": "MUSKAN  CHAUDHARY", "T755": "BHAWNA  TIRTHANI", "T758": "NIKITA  SINGH", "T761": "SHRISTI  SHARMA", "T763": "SAMISTHA  GUPTA", "T764": "PRINCY KUMARI PASWAN", "T767": "RUCHI  YADAV", "T769": "RAMYA  KANKAS", "T77": "TANUSHREE  SHARMA", "T773": "DEEPTI  ASUDANI", "T774": "PARUL  MATHUR", "T775": "KANIKA  BADAYA", "T776": "NEELIMA  YADAV", "T778": "ANUJA  SHARMA", "T78": "TANYA AIRUN", "T780": "UMA  SHARMA", "T782": "MAYA  KUMAWAT", "T783": "SHWETA  GOYAL", "T788": "PREETI  MAHESHWARI", "T789": "NAINI  AGARWAL", "T79": "VANDANA DHALL", "T790": "SNEHA  SENGUPTA", "T791": "DHRRITI  CHANDNA", "T793": "SHIVANI  RANA", "T794": "NANDINI  SHARMA", "T795": "SHREYA  JAIN", "T800": "MAHIMA  JAIN", "T801": "DIVYANKA SINGH BAIS", "T805": "CHINKI  SINDHI", "T808": "REEMA  GURDASANI", "T811": "JEENU  JOHN", "T814": "DEEKSHA  PAHILAJANI", "T815": "DIKSHA  VERMA", "T816": "DIVYA  SHARMA", "T817": "GARIMA  JAIN", "T818": "JYOTI  TIWAREE", "T819": "KASHISH  PATNI", "T820": "KHYATI  SINGH", "T823": "NEHA  TYAGI", "T824": "NIKITA  SONI", "T825": "NEHA S KUMAR", "T827": "PINKY  GUPTA", "T828": "GARGI  SINGH", "T829": "PUNEET  SONI", "T831": "VANDANA  RATHORE", "T834": "PURVA  BANSAL", "T835": "PORTIA  MATHUR", "T837": "RIYA  VARGHESE", "T838": "NIPUN SAHAI BHATNAGAR", "T839": "NAVYA SAHAI BHATNAGAR", "T841": "ISHNEET  KAUR", "T845": "MEGHA  SHARMA", "T847": "NEHA  SIWACH", "T848": "JUHI  SHARMA", "T849": "HARSHITA  SHARMA", "T852": "NEELU  MATHUR", "T853": "SHREYA  YADAV", "T855": "ROOMA  GUPTA", "T857": "TANYA  BHATIA", "T860": "ANITA  KUMARI", "T862": "DIVYA  AGARWAL", "T865": "DIVYA  BHATT", "T87": "PRATIKSHA JAIN", "T870": "PREET  KAUR", "T871": "PRAGYA  SARASWAT", "T872": "MEHR  VASWANI", "T875": "PRIYA  SHEKHAWAT", "T876": "SANIA  NAAZ", "T877": "ADITI  SHARMA", "T878": "SUBHASH  YADAV", "T90": "SONIA JAIN", "T92": "RAJKAMAL", "T95": "RESHMA NARANG", "T98": "AKANKSHA SINGH", "GTB3002": "DEEPALI SAWHNEY", "GTB3003": "NEHA RATHI", "GTB3004": "JAYA S PARASHAR", "GTB3005": "KAMAL SHARMA", "GTB3006": "MAHESH KUMAR SHARMA", "GTB3007": "RAM SWAROOP SHARMA", "GTB3008": "GANESH SHARMA", "GTB3009": "GIRDHARI LAL VIJAYVERGIYA", "GTB3010": "SATYAVEER SAINI", "GTB3011": "VISHAKHA JULKA", "GTB3012": "RISHABH SHARMA", "GTB3013": "BABU LAL RAIGAR", "GTB3014": "UDAY AIRUN", "GTB3015": "CHANDAR TIWARI", "GTB3016": "BHAWNA THUKRAL", "GTB3017": "MEDHA N RANGA", "GTB3020": "NISHANT SHARMA", "GTB3021": "RAMBHAJAN MALI", "GTB3022": "VISHNU KUMAR SHARMA", "GTB3023": "MAHENDRA KUMAR SUTHAR", "GTB3024": "NAWAL KISHOR JANGID", "GTB3025": "DEVENDRA KUMAR GURJAR", "GTB3026": "MANNA LAL MEENA", "GTB3028": "PAWAN KUMAR SAINI", "GTB3029": "KARAN SHARMA", "GTB3030": "KEDAR LAL SHARMA", "GTB3031": "ANKUR R NAIDU", "GTB3032": "SAOOD NIAZI", "GTB3033": "ANUSHKA SINGH", "GTB3035": "RAVI KUMAR MAHAWAR", "GTB3036": "MEGHNA GANDHI", "GTB3037": "RITESH SAIN", "GTB3038": "BABU LAL SHARMA", "GTB3039": "SHUBHAM KUMAWAT", "GTB3040": "RAMU PRAJAPAT", "GTB3041": "KARTIK JANGID", "GTB3042": "MRINALINI CHAUHAN"};
+
+const empIdInput = document.getElementById('empId');
+const nameBox = document.getElementById('nameBox');
+const nameLabel = document.getElementById('nameLabel');
+const empError = document.getElementById('empError');
+const emailField = document.getElementById('emailField');
+const personalEmail = document.getElementById('personalEmail');
+const emailError = document.getElementById('emailError');
+const submitBtn = document.getElementById('submitBtn');
+
+let validEmpId = null;
+let validName = null;
+
+empIdInput.addEventListener('input', function() {
+  const val = this.value.trim().toUpperCase();
+  empError.classList.remove('visible');
+  nameBox.className = 'name-box';
+  nameLabel.classList.remove('visible');
+  emailField.style.display = 'none';
+  submitBtn.disabled = true;
+  validEmpId = null;
+  validName = null;
+
+  if (val.length === 0) return;
+
+  if (EMP_DATA[val]) {
+    validName = EMP_DATA[val].replace(/  +/g, ' ').trim();
+    validEmpId = val;
+    nameBox.textContent = '✓  ' + validName;
+    nameBox.className = 'name-box found';
+    nameLabel.textContent = 'Employee Name';
+    nameLabel.classList.add('visible');
+    empIdInput.classList.remove('error-border');
+    empIdInput.classList.add('success-border');
+    emailField.style.display = 'block';
+    validateEmail();
+  } else {
+    empIdInput.classList.remove('success-border');
+    empIdInput.classList.add('error-border');
+  }
+});
+
+empIdInput.addEventListener('blur', function() {
+  const val = this.value.trim().toUpperCase();
+  if (val.length > 0 && !EMP_DATA[val]) {
+    nameBox.textContent = 'Employee ID not found. Please check and re-enter.';
+    nameBox.className = 'name-box not-found';
+    nameLabel.classList.remove('visible');
+  }
+});
+
+personalEmail.addEventListener('input', validateEmail);
+
+function validateEmail() {
+  const emailVal = personalEmail.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (validEmpId && emailRegex.test(emailVal)) {
+    submitBtn.disabled = false;
+    emailError.classList.remove('visible');
+    personalEmail.classList.add('success-border');
+    personalEmail.classList.remove('error-border');
+  } else {
+    submitBtn.disabled = true;
+    personalEmail.classList.remove('success-border');
+    if (emailVal.length > 0) {
+      personalEmail.classList.add('error-border');
+    }
+  }
+}
+
+personalEmail.addEventListener('blur', function() {
+  const emailVal = this.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (emailVal.length > 0 && !emailRegex.test(emailVal)) {
+    emailError.classList.add('visible');
+  } else {
+    emailError.classList.remove('visible');
+  }
+});
+
+function handleSubmit() {
+  if (!validEmpId || !validName) return;
+  const emailVal = personalEmail.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailVal)) {
+    emailError.classList.add('visible');
+    return;
+  }
+
+  // ---- SUBMIT TO GOOGLE SHEETS ----
+  // Replace the URL below with your Google Apps Script Web App URL
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbzDiLo0_R-La7lGfD3sFCc6GZeONx6RL3ZaQ7QcLkG44rv28OG_8PMThrk0z3np7Cev/exec";
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+
+  const payload = {
+    empId: validEmpId,
+    name: validName,
+    email: emailVal,
+    timestamp: new Date().toISOString()
+  };
+
+  fetch(SHEET_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    showSuccess(validName);
+  }).catch(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit';
+    alert('Submission failed. Please try again or contact HR.');
+  });
+}
+
+function showSuccess(name) {
+  document.getElementById('formSection').style.display = 'none';
+  const msg = document.getElementById('successMsg');
+  msg.style.display = 'block';
+  document.getElementById('successText').textContent =
+    'Thank you, ' + name.split(' ')[0] + '. Your personal email ID has been registered successfully.';
+}
+</script>
+</body>
+</html>
