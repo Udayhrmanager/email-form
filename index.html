@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- saved from url=(0066)file:///C:/Users/JPGS-758/Downloads/JPGS_Email_Registration_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal Email Registration – JPGS</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -199,18 +199,18 @@
   <div class="header">
     <!-- JPGS Logo SVG (blue globe) -->
     <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="32" cy="32" r="28" fill="#1a3c6e"/>
-      <ellipse cx="32" cy="32" rx="12" ry="28" fill="none" stroke="#fff" stroke-width="1.5"/>
-      <ellipse cx="32" cy="32" rx="28" ry="10" fill="none" stroke="#fff" stroke-width="1.5"/>
-      <line x1="4" y1="32" x2="60" y2="32" stroke="#fff" stroke-width="1.5"/>
-      <line x1="32" y1="4" x2="32" y2="60" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="32" cy="32" r="28" fill="#1a3c6e"></circle>
+      <ellipse cx="32" cy="32" rx="12" ry="28" fill="none" stroke="#fff" stroke-width="1.5"></ellipse>
+      <ellipse cx="32" cy="32" rx="28" ry="10" fill="none" stroke="#fff" stroke-width="1.5"></ellipse>
+      <line x1="4" y1="32" x2="60" y2="32" stroke="#fff" stroke-width="1.5"></line>
+      <line x1="32" y1="4" x2="32" y2="60" stroke="#fff" stroke-width="1.5"></line>
       <text x="32" y="37" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="10" fill="#c9a84c">JPGS</text>
     </svg>
     <h1>Jayshree Periwal Global School</h1>
     <p class="tagline">Educate, Enlighten, Empower</p>
   </div>
 
-  <hr class="divider"/>
+  <hr class="divider">
 
   <!-- Form Section -->
   <div id="formSection">
@@ -222,7 +222,7 @@
 
     <div class="field">
       <label for="empId">Employee ID *</label>
-      <input type="text" id="empId" placeholder="e.g. T123, GTB3014, 1003" autocomplete="off" spellcheck="false"/>
+      <input type="text" id="empId" placeholder="e.g. T123, GTB3014, 1003" autocomplete="off" spellcheck="false">
       <div class="name-label" id="nameLabel">Employee Name</div>
       <div class="name-box" id="nameBox"></div>
       <div class="error-msg" id="empError">Employee ID not recognised. Please check and try again.</div>
@@ -230,11 +230,11 @@
 
     <div class="field" id="emailField" style="display:none;">
       <label for="personalEmail">Personal Email ID *</label>
-      <input type="email" id="personalEmail" placeholder="yourname@gmail.com" autocomplete="off"/>
+      <input type="email" id="personalEmail" placeholder="yourname@gmail.com" autocomplete="off">
       <div class="error-msg" id="emailError">Please enter a valid email address.</div>
     </div>
 
-    <button class="submit-btn" id="submitBtn" disabled onclick="handleSubmit()">Submit</button>
+    <button class="submit-btn" id="submitBtn" disabled="" onclick="handleSubmit()">Submit</button>
   </div>
 
   <!-- Success Section -->
@@ -340,7 +340,7 @@ function handleSubmit() {
 
   // ---- SUBMIT TO GOOGLE SHEETS ----
   // Replace the URL below with your Google Apps Script Web App URL
-  const SHEET_URL = "https://script.google.com/macros/s/AKfycbzDiLo0_R-La7lGfD3sFCc6GZeONx6RL3ZaQ7QcLkG44rv28OG_8PMThrk0z3np7Cev/exec";
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbxwQU12TwLaEvxYlVV8kIpkMFz3my7b45FnklXOmYbiDSd7k7I6hu_UtfYTbQfGmiIg/exec";
 
   submitBtn.disabled = true;
   submitBtn.textContent = 'Submitting...';
@@ -374,5 +374,5 @@ function showSuccess(name) {
     'Thank you, ' + name.split(' ')[0] + '. Your personal email ID has been registered successfully.';
 }
 </script>
-</body>
-</html>
+
+</body></html>
